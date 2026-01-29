@@ -1,21 +1,23 @@
-public class CatalogQueueableService implements Queueable, Database.AllowsCallouts {
+public class CatalogQueueableService implements Queueable, Database.AllowsCallouts
+{
 
     private List<Product2> products;
-
-    // Constructor
-    public CatalogQueueableService(List<Product2> products) {
+    public CatalogQueueableService(List<Product2> products)
+{
         this.products = products;
     }
 
-    // Queueable entry point
-    public void execute(QueueableContext context) {
+    public void execute(QueueableContext context)
+{
 
-        for (Product2 prod : products) {
+        for (Product2 prod : products)
+{
             callCatalogAPI(prod);
         }
     }
 
-    private void callCatalogAPI(Product2 prod) {
+    private void callCatalogAPI(Product2 prod) 
+{
 
         HttpRequest req = new HttpRequest();
         req.setEndpoint('https://mock-catalog-api.com/products');
@@ -40,31 +42,25 @@ public class CatalogQueueableService implements Queueable, Database.AllowsCallou
 
             if (res.getStatusCode() == 200) {
 
-                Map<String, Object> responseMap =
-                    (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
+                Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
 
                 String catalogId = (String) responseMap.get('catalogId');
 
-                update new Product2(
-                    Id = prod.Id,
-                    Catalog_Id__c = catalogId
-                );
+                update new Product2( Id = prod.Id, Catalog_Id__c = catalogId);
 
-            } else {
+            } else
+{
                 logError(prod.Id, res.getStatusCode(), res.getBody());
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+{
             logError(prod.Id, 500, e.getMessage());
         }
     }
 
     private void logError(Id productId, Integer statusCode, String message) {
 
-        insert new API_Log__c(
-            Product__c = productId,
-            Status_Code__c = statusCode,
-            Message__c = message
-        );
+        insert new API_Log__c( Product__c = productId,Status_Code__c = statusCode,Message__c = message);
     }
 }
