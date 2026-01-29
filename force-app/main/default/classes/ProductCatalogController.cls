@@ -1,7 +1,9 @@
-public with sharing class ProductCatalogController {
+public with sharing class ProductCatalogController
+{
 
     @AuraEnabled(cacheable=true)
-    public static List<Product2> getProducts(String searchKey) {
+    public static List<Product2> getProducts(String searchKey) 
+{
 
         String key = '%' + searchKey + '%';
 
