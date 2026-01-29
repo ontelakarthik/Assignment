@@ -14,8 +14,7 @@ public with sharing class RecommendationCalloutService
 
         if (res.getStatusCode() != 200) 
 {
-            throw new CalloutException( 'Failed with status: ' + res.getStatus()
-            );
+            throw new CalloutException( 'Failed with status: ' + res.getStatus());
         }
 
         return (List<Map<String, Object>>)
