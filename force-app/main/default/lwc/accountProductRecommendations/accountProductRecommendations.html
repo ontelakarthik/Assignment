@@ -1,0 +1,30 @@
+<template>
+    <lightning-card title="Product Recommendations">
+
+        <div class="slds-m-around_medium">
+            <lightning-button
+                label="Get Recommendations"
+                variant="brand"
+                onclick={handleClick}>
+            </lightning-button>
+        </div>
+
+        <template if:true={recommendations}>
+            <div class="slds-m-around_medium">
+                <template for:each={recommendations} for:item="rec">
+                    <p key={rec.Id}>
+                        <strong>{rec.Product__r.Name}</strong>
+                        — Score: {rec.Recommendation_Score__c}
+                    </p>
+                </template>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <p class="slds-text-color_error slds-m-around_medium">
+                {error}
+            </p>
+        </template>
+
+    </lightning-card>
+</template>

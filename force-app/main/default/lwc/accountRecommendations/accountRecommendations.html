@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Product Recommendations">
+        <div class="slds-m-around_medium">
+            <lightning-button
+                label="Get Recommendations"
+                variant="brand"
+                onclick={handleClick}>
+            </lightning-button>
+        </div>
+
+        <template if:true={recommendations}>
+            <lightning-datatable
+                key-field="Id"
+                data={recommendations}
+                columns={columns}>
+            </lightning-datatable>
+        </template>
+    </lightning-card>
+</template>
