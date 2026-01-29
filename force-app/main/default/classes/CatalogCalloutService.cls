@@ -31,8 +31,7 @@ public class CatalogCalloutService
                 if (res.getStatusCode() == 200) 
 {
 
-                    Map<String, Object> responseMap =
-                        (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
+                    Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
 
                     String catalogId = (String) responseMap.get('catalogId');
 
@@ -40,11 +39,7 @@ public class CatalogCalloutService
 
                 } 
                 else {
-                    insert new API_Log__c(
-                        Product__c = prod.Id,
-                        Status_Code__c = res.getStatusCode(),
-                        Message__c = res.getBody()
-                    );
+                    insert new API_Log__c(Product__c = prod.Id,Status_Code__c = res.getStatusCode(),Message__c = res.getBody());
                 }
 
             } catch (Exception e) 
