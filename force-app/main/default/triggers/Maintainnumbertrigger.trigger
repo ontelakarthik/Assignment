@@ -1,3 +1,4 @@
-trigger Maintainnumbertrigger on Opportunity (before insert) {
+trigger Maintainnumbertrigger on Opportunity (before insert)
+{
 
 }
