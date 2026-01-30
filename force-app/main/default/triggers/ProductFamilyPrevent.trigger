@@ -1,6 +1,4 @@
-trigger ProductFamilyPrevent on Product2 (before update) {
-    ProductFamilyPreventHandler.beforeUpdate(
-        Trigger.new,
-        Trigger.oldMap
-    );
+trigger ProductFamilyPrevent on Product2 (before update)
+{
+    ProductFamilyPreventHandler.beforeUpdate(Trigger.new,Trigger.oldMap);
 }
