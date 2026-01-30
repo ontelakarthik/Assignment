@@ -4,7 +4,8 @@ import { updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 
-export default class ProductCatalog extends LightningElement {
+export default class ProductCatalog extends LightningElement 
+{
 
     searchKey = '';
     products;
@@ -17,8 +18,6 @@ export default class ProductCatalog extends LightningElement {
         { label: 'Active', fieldName: 'IsActive', type: 'boolean', editable: true },
         { label: 'List Price', fieldName: 'ListPrice__c', type: 'number', editable: true }
     ];
-
-    // 🔗 Fetch data
     @wire(getProducts, { searchKey: '$searchKey' })
     wiredProducts(result) {
         this.wiredResult = result;
@@ -26,41 +25,26 @@ export default class ProductCatalog extends LightningElement {
             this.products = result.data;
         }
     }
-
-    // 🔍 Search handler
-    handleSearch(event) {
+    handleSearch(event)
+    {
         this.searchKey = event.target.value;
     }
+    async handleSave(event) 
+    {
 
-    // 💾 Save inline edits
-    async handleSave(event) {
-
-        const records = event.detail.draftValues.map(draft => ({
-            fields: { ...draft }
-        }));
+        const records = event.detail.draftValues.map(draft => ({fields: { ...draft }}));
 
         try {
             await Promise.all(records.map(record => updateRecord(record)));
 
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Success',
-                    message: 'Products updated successfully',
-                    variant: 'success'
-                })
-            );
+            this.dispatchEvent( new ShowToastEvent({title: 'Success',message: 'Products updated successfully',variant: 'success'}));
 
             this.draftValues = [];
             await refreshApex(this.wiredResult);
 
-        } catch (error) {
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Error',
-                    message: error.body.message,
-                    variant: 'error'
-                })
-            );
+        } catch (error)
+        {
+            this.dispatchEvent(new ShowToastEvent({title: 'Error', message: error.body.message,variant: 'error'}));
         }
     }
 }
