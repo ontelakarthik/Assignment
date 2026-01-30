@@ -51,7 +51,8 @@ public class ActiveProductHandler
             pc.Active_Product_Count__c = categoryToCount.containsKey(catId)? categoryToCount.get(catId): 0;categoriesToUpdate.add(pc);
         }
 
-        if (!categoriesToUpdate.isEmpty()) {
+        if (!categoriesToUpdate.isEmpty()) 
+{
             update categoriesToUpdate;
         }
     }
