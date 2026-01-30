@@ -42,17 +42,13 @@ public class ActiveProductHandler
             categoryToCount.put((Id) ar.get('categoryId'),(Integer) ar.get('total'));
         }
 
-        List<Product_Cateory__c> categoriesToUpdate =
-            new List<Product_Cateory__c>();
+        List<Product_Cateory__c> categoriesToUpdate = new List<Product_Cateory__c>();
 
-        for (Id catId : categoryIds) {
+        for (Id catId : categoryIds) 
+{
            Product_Cateory__c pc = new Product_Cateory__c();
             pc.Id = catId;
-            pc.Active_Product_Count__c =
-                categoryToCount.containsKey(catId)
-                ? categoryToCount.get(catId)
-                : 0;
-            categoriesToUpdate.add(pc);
+            pc.Active_Product_Count__c = categoryToCount.containsKey(catId)? categoryToCount.get(catId): 0;categoriesToUpdate.add(pc);
         }
 
         if (!categoriesToUpdate.isEmpty()) {
