@@ -13,51 +13,35 @@ export default class AccountProductRecommendations extends LightningElement {
     recommendations;
     error;
     wiredResult;
-
-    // Load existing recommendations
     @wire(getRecommendations, { accountId: '$recordId' })
-    wiredRecs(result) {
+    wiredRecs(result) 
+    {
         this.wiredResult = result;
-        if (result.data) {
+        if (result.data) 
+        {
             this.recommendations = result.data;
             this.error = undefined;
-        } else if (result.error) {
+        } else if (result.error) 
+        {
             this.error = result.error.body.message;
             this.recommendations = undefined;
         }
     }
-
-    // Button click
-    handleClick() {
+    handleClick() 
+    {
         fetchRecommendations({ accountId: this.recordId })
-            .then(() => {
-                this.showToast(
-                    'Success',
-                    'Recommendation process started',
-                    'success'
-                );
+            .then(() => {this.showToast('Success','Recommendation process started','success');
 
-                // Wait for Queueable to finish, then refresh
-                setTimeout(() => {
-                    refreshApex(this.wiredResult);
-                }, 3000);
+                setTimeout(() => {refreshApex(this.wiredResult);
+                                 }, 3000);
             })
-            .catch(error => {
-                this.showToast(
-                    'Error',
-                    error.body.message,
-                    'error'
-                );
+            .catch(error => {this.showToast('Error', error.body.message,'error');
             });
     }
 
-    showToast(title, message, variant) {
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title,
-                message,
-                variant
-            })
+    showToast(title, message, variant)
+    {
+        this.dispatchEvent(new ShowToastEvent({title,message, variant})
         );
     }
 }
