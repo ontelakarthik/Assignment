@@ -1,8 +1,12 @@
-public class Product2TriggerHandler {
+public class Product2TriggerHandler 
+{
 
-    public void beforeInsert(List<Product2> products) {
-        for (Product2 p : products) {
-            if (String.isBlank(p.Name)) {
+    public void beforeInsert(List<Product2> products) 
+{
+        for (Product2 p : products)
+{
+            if (String.isBlank(p.Name))
+{
                 p.addError('Product Name is required');
             }
         }
