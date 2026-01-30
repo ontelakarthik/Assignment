@@ -1,6 +1,5 @@
-trigger ProductActiveCountTrigger on Product2 (
-    after insert, after update, after delete
-) {
+trigger ProductActiveCountTrigger on Product2 (after insert, after update, after delete) 
+{
     Set<Id> catIds = new Set<Id>();
 
     if(Trigger.isInsert || Trigger.isUpdate)
@@ -37,13 +36,12 @@ trigger ProductActiveCountTrigger on Product2 (
         }
     }
 
-    if(catIds.isEmpty()) return;
+    if(catIds.isEmpty()) 
+return;
 
    Map<Id, Integer> countMap = new Map<Id, Integer>();
 
-for(AggregateResult ar : [ SELECT Product_Cateory__c cat, COUNT(Id) total FROM Product2 WHERE IsActive = TRUE 
-                          AND Product_Cateory__c IN :catIds
-                           GROUP BY Product_Cateory__c])
+   for(AggregateResult ar : [ SELECT Product_Cateory__c cat, COUNT(Id) total FROM Product2 WHERE IsActive = TRUE  AND Product_Cateory__c IN :catIds GROUP BY Product_Cateory__c])
 {
     countMap.put((Id)ar.get('cat'), (Integer)ar.get('total'));
 }
