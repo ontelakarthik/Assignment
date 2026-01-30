@@ -1,4 +1,5 @@
-trigger OpportunityLineItemMarginTrigger on OpportunityLineItem (before insert) {
+trigger OpportunityLineItemMarginTrigger on OpportunityLineItem (before insert)
+{
 
     Set<Id> pdIds = new Set<Id>();
     for (OpportunityLineItem oli : Trigger.new) 
