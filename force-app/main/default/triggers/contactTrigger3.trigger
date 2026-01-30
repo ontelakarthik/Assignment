@@ -1,4 +1,4 @@
-trigger contactTrigger3 on Contact (before delete) {
+trigger contactTrigger3 on Contact (before delete) 
 {
     if(Trigger.isBefore && Trigger.isDelete)
     {
@@ -10,8 +10,7 @@ trigger contactTrigger3 on Contact (before delete) {
                 accids.add(con.AccountId);
             }
         }
-        Map<Id,Account> accmap=new Map<Id,Account>([Select Id,Active__c from Account
-                                                    Where Id IN: accIds]);
+        Map<Id,Account> accmap=new Map<Id,Account>([Select Id,Active__c from Account Where Id IN: accIds]);
         
         for(Contact con:Trigger.old)
         {
@@ -22,5 +21,4 @@ trigger contactTrigger3 on Contact (before delete) {
             }
         }
     }
-}
 }
